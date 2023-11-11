@@ -21,12 +21,7 @@ function authenticateTokenMiddleware(req, res, next) {
 
 
 app.use(express.json());
-app.use(cors({
-  origin: 'http://localhost:5173',
-  allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept, Authorization",
-  methods: "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-  optionsSuccessStatus: 200
-}));
+app.use(cors());
 
 
 app.use('/uploads', express.static('uploads'));
@@ -120,6 +115,8 @@ app.get("/books", async (req, res) => {
 
 // edit a book
 app.put("/books/:id", authenticateTokenMiddleware, async (req, res) => {
+
+  
   try {
     const { id } = req.params;
     const { title, author, publisher, year, pages } = req.body;
